@@ -1,4 +1,6 @@
+const btnCajon1 = document.querySelector("#btn-cajon1");
 
+let cajonAbierto = false;
 
 const visor = document.querySelector("#visor");
 
@@ -110,4 +112,26 @@ visor.addEventListener("load", () => {
         "Animaciones disponibles:",
         visor.availableAnimations
     );
+});
+
+btnCajon1.addEventListener("click", () => {
+
+    visor.animationName = "Abrir_Cajon_1";
+
+    if (!cajonAbierto) {
+
+        visor.currentTime = 0;
+
+        visor.play();
+
+    } else {
+
+        visor.currentTime = visor.duration;
+
+        visor.play({ reverse: true });
+
+    }
+
+    cajonAbierto = !cajonAbierto;
+
 });
