@@ -1,40 +1,33 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
-
     <title>Catálogo 3D</title>
-
     <link rel="stylesheet"
           href="style.css">
-
     <script type="module"
             src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js">
     </script>
-
 </head>
-
 <body>
-
     <model-viewer
         id="visor"
         src="modelos/escritorio.glb"
         camera-controls
         auto-rotate
-        camera-orbit="45deg 75deg 120%"
-        field-of-view="25deg"
-        shadow-intensity="1"
-        exposure="1"
-        environment-image="neutral">
+        camera-orbit="45deg 70deg 85%"
+        field-of-view="22deg"
+        min-camera-orbit="auto auto 60%"
+        max-camera-orbit="auto auto 250%"
+        shadow-intensity="1.2"
+        shadow-softness="0.8"
+        exposure="1.1"
+        environment-image="neutral"
+        interaction-prompt="none"
+        ar>
     </model-viewer>
-
     <script src="js/script.js"></script>
-
 </body>
-
 </html>
