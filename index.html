@@ -1,17 +1,45 @@
-<model-viewer
-    id="visor"
-    src="modelos/escritorio.fbx"
+<!DOCTYPE html>
+<html lang="es">
 
-    camera-controls
+<head>
 
-    auto-rotate
+    <meta charset="UTF-8">
 
-    shadow-intensity="1"
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    exposure="1"
+    <title>Catálogo 3D</title>
 
-    ar
+    <link rel="stylesheet"
+          href="css/style.css">
 
-    touch-action="pan-y">
+    <script type="module"
+            src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js">
+    </script>
 
-</model-viewer>
+</head>
+
+<body>
+
+    <model-viewer
+        id="visor"
+        src="modelos/escritorio.glb"
+
+        camera-controls
+        auto-rotate
+
+        shadow-intensity="1"
+
+        exposure="1"
+
+        environment-image="neutral"
+
+        ar>
+
+    </model-viewer>
+
+    <script src="js/app.js"></script>
+
+</body>
+
+</html>
