@@ -122,7 +122,7 @@ btnCajon1.addEventListener("click", () => {
 
         visor.currentTime = 0;
 
-        visor.play();
+        visor.play({ repetitions: 1 });
 
     } else {
 
