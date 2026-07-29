@@ -16,6 +16,7 @@ body {
     position: relative;
     width: 100vw;
     height: 100vh;
+    height: 100dvh;
     overflow: hidden;
 }
 
@@ -36,14 +37,8 @@ model-viewer {
 
 .controles {
     position: fixed;
-
     left: 50%;
-
-    transform: translateX(-50%);
-
-    /* Distancia del borde inferior */
     bottom: max(20px, env(safe-area-inset-bottom));
-
     z-index: 999;
 
     display: flex;
@@ -51,13 +46,16 @@ model-viewer {
 
     padding: 12px 16px;
 
+    transform: translateX(-50%);
+
     border-radius: 18px;
 
-    background: rgba(25,25,25,.82);
+    background: rgba(25, 25, 25, 0.82);
 
     backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
 
-    box-shadow: 0 8px 30px rgba(0,0,0,.35);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
 }
 
 .boton-control {
@@ -102,23 +100,22 @@ model-viewer {
 
 /* Vista para celular */
 
-@media (max-width:650px){
+@media (max-width: 650px) {
+    .controles {
+        width: calc(100% - 20px);
 
-.controles{
+        bottom: calc(
+            env(safe-area-inset-bottom) + 35px
+        );
 
-    width:calc(100% - 20px);
-
-    bottom:calc(env(safe-area-inset-bottom) + 25px);
-
-    padding:10px;
-
-}
-
-}
+        gap: 2px;
+        padding: 10px;
+    }
 
     .boton-control {
         flex: 1;
         min-width: 0;
+
         padding: 9px 4px;
         font-size: 19px;
     }
