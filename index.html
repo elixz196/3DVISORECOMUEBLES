@@ -1,33 +1,104 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>Catálogo 3D</title>
-    <link rel="stylesheet"
-          href="style.css">
-    <script type="module"
-            src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js">
+
+    <link rel="stylesheet" href="./style.css">
+
+    <script
+        type="module"
+        src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js">
     </script>
 </head>
+
 <body>
-    <model-viewer
-        id="visor"
-        src="modelos/escritorio.glb"
-        camera-controls
-        auto-rotate
-        camera-orbit="35deg 75deg 135%"
-        field-of-view="30deg"
-        min-camera-orbit="auto auto 60%"
-        max-camera-orbit="auto auto 250%"
-        shadow-intensity="1.2"
-        shadow-softness="0.8"
-        exposure="1.1"
-        environment-image="neutral"
-        interaction-prompt="none"
-        ar>
-    </model-viewer>
-    <script src="js/script.js"></script>
+
+    <main class="visor-contenedor">
+
+        <model-viewer
+            id="visor"
+            src="./modelos/escritorio.glb"
+            alt="Escritorio 3D de Ecomuebles"
+
+            camera-controls
+            touch-action="pan-y"
+
+            camera-orbit="35deg 75deg 135%"
+            field-of-view="30deg"
+
+            min-camera-orbit="auto auto 70%"
+            max-camera-orbit="auto auto 300%"
+
+            shadow-intensity="1.2"
+            shadow-softness="0.8"
+
+            exposure="1.1"
+            environment-image="neutral"
+
+            interaction-prompt="none">
+        </model-viewer>
+
+        <nav class="controles" aria-label="Controles del visor 3D">
+
+            <button
+                id="btn-inicio"
+                class="boton-control"
+                type="button"
+                title="Volver a la vista inicial">
+                ⌂
+                <span>Inicio</span>
+            </button>
+
+            <button
+                id="btn-rotacion"
+                class="boton-control"
+                type="button"
+                title="Activar rotación automática">
+                ↻
+                <span>Girar</span>
+            </button>
+
+            <button
+                id="btn-acercar"
+                class="boton-control"
+                type="button"
+                title="Acercar modelo">
+                ＋
+                <span>Acercar</span>
+            </button>
+
+            <button
+                id="btn-alejar"
+                class="boton-control"
+                type="button"
+                title="Alejar modelo">
+                −
+                <span>Alejar</span>
+            </button>
+
+            <button
+                id="btn-pantalla"
+                class="boton-control"
+                type="button"
+                title="Abrir en pantalla completa">
+                ⛶
+                <span>Pantalla</span>
+            </button>
+
+        </nav>
+
+    </main>
+
+    <script src="./script.js"></script>
+
 </body>
+
 </html>
