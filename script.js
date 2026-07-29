@@ -1,3 +1,5 @@
+
+
 const visor = document.querySelector("#visor");
 
 const btnInicio = document.querySelector("#btn-inicio");
@@ -99,8 +101,13 @@ document.addEventListener("fullscreenchange", () => {
     );
 });
 
-/* Confirmar que el modelo cargó */
+/* Confirmar que el modelo cargó y leer animaciones */
 
 visor.addEventListener("load", () => {
     console.log("Modelo 3D cargado correctamente.");
+
+    console.log(
+        "Animaciones disponibles:",
+        visor.availableAnimations
+    );
 });
