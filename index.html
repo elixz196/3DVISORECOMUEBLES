@@ -22,21 +22,19 @@
 <body>
 
     <model-viewer
-        id="visor"
-        src="modelos/escritorio.glb"
+    id="visor"
+    src="modelos/escritorio.glb"
 
-        camera-controls
-        auto-rotate
+    camera-controls
+    auto-rotate
 
-        shadow-intensity="1"
+    camera-orbit="45deg 75deg 120%"
+    field-of-view="25deg"
 
-        exposure="1"
-
-        environment-image="neutral"
-
-        ar>
-
-    </model-viewer>
+    shadow-intensity="1"
+    exposure="1"
+    environment-image="neutral">
+</model-viewer>
 
     <script src="js/script.js"></script>
 
