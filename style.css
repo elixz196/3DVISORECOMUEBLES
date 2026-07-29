@@ -3,7 +3,6 @@
     padding: 0;
     box-sizing: border-box;
 }
-
 html,
 body {
     width: 100%;
@@ -12,12 +11,14 @@ body {
     background: #4f4f4f;
 }
 
-model-viewer {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        180deg,
-        #ffffff 0%,
-        #d9d9d9 100%
-    );
+model-viewer{
+    width:100vw;
+    height:100vh;
+    background:radial-gradient(
+        circle at center,
+        #666666 0%,
+        #4d4d4d 70%,
+        #3a3a3a 100%
+        );
+    }
 }
