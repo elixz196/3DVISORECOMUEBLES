@@ -1,13 +1,3 @@
-const btnAbrirTodo = document.querySelector("#btn-abrir-todo");
-const textoAbrirTodo = btnAbrirTodo.querySelector("span");
-
-let muebleAbierto = false;
-let animacionEnCurso = false;
-
-const btnCajon1 = document.querySelector("#btn-cajon1");
-
-let cajonAbierto = false;
-
 const visor = document.querySelector("#visor");
 
 const btnInicio = document.querySelector("#btn-inicio");
@@ -15,6 +5,11 @@ const btnRotacion = document.querySelector("#btn-rotacion");
 const btnAcercar = document.querySelector("#btn-acercar");
 const btnAlejar = document.querySelector("#btn-alejar");
 const btnPantalla = document.querySelector("#btn-pantalla");
+const btnAbrirTodo = document.querySelector("#btn-abrir-todo");
+
+const textoAbrirTodo = btnAbrirTodo.querySelector("span");
+
+const nombreAnimacion = "Abrir_Todo";
 
 const vistaInicial = {
     orbit: "35deg 75deg 135%",
@@ -23,16 +18,10 @@ const vistaInicial = {
 };
 
 let rotacionActiva = false;
+let muebleAbierto = false;
+let animacionEnCurso = false;
 
-/*
- * Devuelve la distancia actual de la cámara.
- * cameraOrbit.theta y cameraOrbit.phi están en radianes;
- * cameraOrbit.radius contiene la distancia.
- */
-function obtenerDistanciaActual() {
-    const orbita = visor.getCameraOrbit();
-    return orbita.radius;
-}
+/* Cambiar distancia de la cámara */
 
 function cambiarDistancia(factor) {
     const orbita = visor.getCameraOrbit();
@@ -53,6 +42,7 @@ btnInicio.addEventListener("click", () => {
     visor.fieldOfView = vistaInicial.fieldOfView;
 
     rotacionActiva = false;
+
     visor.removeAttribute("auto-rotate");
     btnRotacion.classList.remove("activo");
 
@@ -88,19 +78,22 @@ btnAlejar.addEventListener("click", () => {
 
 btnPantalla.addEventListener("click", async () => {
     try {
+        const contenedor = document.querySelector(
+            ".visor-contenedor"
+        );
+
         if (!document.fullscreenElement) {
-            await document
-                .querySelector(".visor-contenedor")
-                .requestFullscreen();
+            await contenedor.requestFullscreen();
         } else {
             await document.exitFullscreen();
         }
     } catch (error) {
-        console.error("No se pudo cambiar la pantalla completa:", error);
+        console.error(
+            "No se pudo cambiar la pantalla completa:",
+            error
+        );
     }
 });
-
-/* Cambiar icono visual cuando se sale con Escape */
 
 document.addEventListener("fullscreenchange", () => {
     btnPantalla.classList.toggle(
@@ -109,45 +102,9 @@ document.addEventListener("fullscreenchange", () => {
     );
 });
 
-/* Confirmar que el modelo cargó y leer animaciones */
-
-visor.addEventListener("load", () => {
-    console.log("Modelo 3D cargado correctamente.");
-    console.log(
-        "Animaciones disponibles:",
-        visor.availableAnimations
-    );
-
-    btnAbrirTodo.disabled =
-        !visor.availableAnimations.includes("Abrir_Todo");
-});
-
-btnCajon1.addEventListener("click", () => {
-
-    visor.animationName = "Abrir_Cajon_1";
-
-    if (!cajonAbierto) {
-
-        visor.currentTime = 0;
-
-        visor.play({ repetitions: 1 });
-
-    } else {
-
-        visor.currentTime = visor.duration;
-
-        visor.play({ reverse: true });
-
-    }
-
-    cajonAbierto = !cajonAbierto;
-
-});
-
+/* Abrir o cerrar todos los mecanismos */
 
 btnAbrirTodo.addEventListener("click", () => {
-    const nombreAnimacion = "Abrir_Todo";
-
     if (animacionEnCurso) {
         return;
     }
@@ -157,6 +114,7 @@ btnAbrirTodo.addEventListener("click", () => {
             `No existe la animación ${nombreAnimacion}`,
             visor.availableAnimations
         );
+
         return;
     }
 
@@ -167,11 +125,11 @@ btnAbrirTodo.addEventListener("click", () => {
     visor.animationName = nombreAnimacion;
 
     if (!muebleAbierto) {
-        // Abrir
+        /* Abrir */
         visor.timeScale = 1;
         visor.currentTime = 0;
     } else {
-        // Cerrar reproduciendo la animación al revés
+        /* Cerrar */
         visor.timeScale = -1;
         visor.currentTime = visor.duration;
     }
@@ -181,18 +139,49 @@ btnAbrirTodo.addEventListener("click", () => {
     });
 });
 
+/*
+ * Se ejecuta cuando termina una reproducción.
+ * play({ repetitions: 1 }) evita que quede en bucle.
+ */
+
 visor.addEventListener("finished", () => {
     muebleAbierto = !muebleAbierto;
     animacionEnCurso = false;
 
     btnAbrirTodo.disabled = false;
-    btnAbrirTodo.classList.toggle("activo", muebleAbierto);
+
+    btnAbrirTodo.classList.toggle(
+        "activo",
+        muebleAbierto
+    );
 
     textoAbrirTodo.textContent = muebleAbierto
         ? "Cerrar"
         : "Abrir";
 
     btnAbrirTodo.title = muebleAbierto
-        ? "Cerrar cajones"
-        : "Abrir cajones";
+        ? "Cerrar cajones y puertas"
+        : "Abrir cajones y puertas";
+});
+
+/* Modelo cargado */
+
+visor.addEventListener("load", () => {
+    console.log("Modelo 3D cargado correctamente.");
+
+    console.log(
+        "Animaciones disponibles:",
+        visor.availableAnimations
+    );
+
+    const tieneAnimacion =
+        visor.availableAnimations.includes(nombreAnimacion);
+
+    btnAbrirTodo.disabled = !tieneAnimacion;
+
+    if (!tieneAnimacion) {
+        console.warn(
+            `El modelo no contiene ${nombreAnimacion}.`
+        );
+    }
 });
