@@ -113,11 +113,13 @@ document.addEventListener("fullscreenchange", () => {
 
 visor.addEventListener("load", () => {
     console.log("Modelo 3D cargado correctamente.");
-
     console.log(
         "Animaciones disponibles:",
         visor.availableAnimations
     );
+
+    btnAbrirTodo.disabled =
+        !visor.availableAnimations.includes("Abrir_Todo");
 });
 
 btnCajon1.addEventListener("click", () => {
@@ -140,4 +142,57 @@ btnCajon1.addEventListener("click", () => {
 
     cajonAbierto = !cajonAbierto;
 
+});
+
+
+btnAbrirTodo.addEventListener("click", () => {
+    const nombreAnimacion = "Abrir_Todo";
+
+    if (animacionEnCurso) {
+        return;
+    }
+
+    if (!visor.availableAnimations.includes(nombreAnimacion)) {
+        console.error(
+            `No existe la animación ${nombreAnimacion}`,
+            visor.availableAnimations
+        );
+        return;
+    }
+
+    animacionEnCurso = true;
+    btnAbrirTodo.disabled = true;
+
+    visor.pause();
+    visor.animationName = nombreAnimacion;
+
+    if (!muebleAbierto) {
+        // Abrir
+        visor.timeScale = 1;
+        visor.currentTime = 0;
+    } else {
+        // Cerrar reproduciendo la animación al revés
+        visor.timeScale = -1;
+        visor.currentTime = visor.duration;
+    }
+
+    visor.play({
+        repetitions: 1
+    });
+});
+
+visor.addEventListener("finished", () => {
+    muebleAbierto = !muebleAbierto;
+    animacionEnCurso = false;
+
+    btnAbrirTodo.disabled = false;
+    btnAbrirTodo.classList.toggle("activo", muebleAbierto);
+
+    textoAbrirTodo.textContent = muebleAbierto
+        ? "Cerrar"
+        : "Abrir";
+
+    btnAbrirTodo.title = muebleAbierto
+        ? "Cerrar cajones"
+        : "Abrir cajones";
 });
