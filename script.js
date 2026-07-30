@@ -1,3 +1,9 @@
+const btnAbrirTodo = document.querySelector("#btn-abrir-todo");
+const textoAbrirTodo = btnAbrirTodo.querySelector("span");
+
+let muebleAbierto = false;
+let animacionEnCurso = false;
+
 const btnCajon1 = document.querySelector("#btn-cajon1");
 
 let cajonAbierto = false;
