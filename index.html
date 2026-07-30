@@ -25,7 +25,7 @@
 
         <model-viewer
             id="visor"
-            src="./modelos/escritorio_animado.glb"
+            src="./modelos/escritorio_animado.glb?v=2"
             alt="Escritorio 3D de Ecomuebles"
 
             camera-controls
@@ -46,7 +46,10 @@
             interaction-prompt="none">
         </model-viewer>
 
-        <nav class="controles" aria-label="Controles del visor 3D">
+        <nav
+            class="controles"
+            aria-label="Controles del visor 3D"
+        >
 
             <button
                 id="btn-inicio"
@@ -85,6 +88,15 @@
             </button>
 
             <button
+                id="btn-abrir-todo"
+                class="boton-control"
+                type="button"
+                title="Abrir cajones y puertas">
+                ▣
+                <span>Abrir</span>
+            </button>
+
+            <button
                 id="btn-pantalla"
                 class="boton-control"
                 type="button"
@@ -92,17 +104,6 @@
                 ⛶
                 <span>Pantalla</span>
             </button>
-
-            <button
-            id="btn-abrir-todo"
-            class="boton-control"
-            type="button"
-            title="Abrir cajones">
-            ▣
-            <span>Abrir</span>
-</button>
-                
-</button>
 
         </nav>
 
